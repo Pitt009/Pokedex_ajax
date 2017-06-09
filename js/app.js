@@ -22,7 +22,7 @@ xhr.onreadystatechange = function (e) {
 xhr.open("GET", "http://pokeapi.co/api/v2/pokemon/");
 
 xhr.send();
-*/
+*//*
 function crearPokemons(pokemons) {
 	var ul = document.getElementById("pokemons");
 
@@ -33,3 +33,17 @@ function crearPokemons(pokemons) {
 		ul.appendChild(li);
 	});
 }
+*/
+function crearPokemons(pokemons){
+	var $ul = $("#pokemons");
+	pokemons.forEach(function (pokemon) {
+		var $li = $("<a>", {'class': 'col l3 waves-effect waves-light btn'});
+		$li.text(pokemon.name);
+
+		$ul.append($li);
+
+
+	});
+}
+
+$(document).ready(crearPokemons);

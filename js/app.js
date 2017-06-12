@@ -1,71 +1,113 @@
-$.getJSON("http://pokeapi.co/api/v2/pokemon/",
-	function (response) {
-	var pokemons = response.name;
-	console.log(pokemons)
-	/*crearPokemons(pokemons);*/
-	mostrarNombre(pokemons);
-});
-
-
-/*var xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function (e) {
-	if (this.readyState === 4) {
-		if (this.status === 200) {
-			var response = JSON.parse(this.response);
-			var pokemons = response.results;
-			//var squads = JSON.parse(this.response);
-			//crearSquads(squads);
-			crearPokemons(pokemons);
-		}
-
-	}
+var cargarPagina = function(){
+	crearPokemons();
 };
 
-xhr.open("GET", "http://pokeapi.co/api/v2/pokemon/");
-
-xhr.send();
-*//*
 function crearPokemons(pokemons) {
-	var ul = document.getElementById("pokemons");
-
-	pokemons.forEach(function (pokemon) {
-		var li = document.createElement("li");
-		li.textContent = pokemon.name;
-
-		ul.appendChild(li);
-	});
+	$.getJSON("http://pokeapi.co/api/v2/pokemon/",
+	function (response) {
+	 var pokemons = response.results;
+	 crearDinamicamente(pokemons);
+});
 }
-*/
-/*function crearPokemons(pokemons){
-	var $ul = $("#pokemons");
-	pokemons.forEach(function (pokemon) {
-		var $li = $("<a>", {'class': 'col l3 waves-effect waves-light btn'});
-		$li.text(pokemon.name);
 
-		$ul.append($li);
+var crearDinamicamente = function (pokemons) {
+	var $div = $("#pokemons");
+	pokemons.forEach(function (pokemon, i) {
+	var $contenedorPokemons = $("<div/>", {'class': 'col 4'});
+	var $a = $("<a />", {'class': 'col l3 waves-effect waves-light btn'});
+	var $contenedorImagen = $("<img/>");
+	$contenedorImagen.attr("src",imagenPokemon[i].imagen);
 
+	$a.attr("data-url", pokemon.url);
+	$a.text(pokemon.name);
+	$div.append($contenedorPokemons).append($a);
+	$contenedorPokemons.append($contenedorImagen);
 
-	});
-}
-*/
-var plantillaPokemon ="<h3>__nombre__</h3>" +
-"<img src='assets/img/charmander.png'>";
-
-var mostrarNombre = function (response) {
-	var $ul = $("#pokemons");
-	pokemons.forEach(function (pokemon) {
-	var $li = $("<a>", {'class': 'col l3 waves-effect waves-light btn'});
-	$li.addClass("pokemon");
-	$li.text(pokemon.name);
-	$ul.append($li);
-	var contenedorPokemon = $("#imagenPokemon");
-		contenedorPokemon.html(
-			plantillaPokemon.replace("__nombre__",).replace("__img__", response.img)
-		);
 
 });
 
 };
+var plantillaPokemon ='<div class="col s12 m8 offset-m2 l6 offset-l3">' +
+  '<div class="card-panel grey lighten-5 z-depth-1">' +
+  '<div class="row valign-wrapper">'+ '<div class="col s2">'+
+  '<img src="__img__" alt="" class="circle responsive-img">'+ '</div>'+
+  '<div class="col s10">' +'<span class="black-text">__nombre__</span>' + '</div>'+
+  '</div>'+'</div>'+
+      '</div>';
 
-$(document).ready(mostrarNombre);
+ var mostrarPokemon = function () {
+ 	 var imagenPokemon = $(this).data("src");
+  var contenedorPokemon = $("#imagen");
+  $.getJSON(imagenPokemon , function (response) {
+ 		contenedorPokemon.html(
+    plantillaPokemon.replace("__nombre__", response.name)
+ 	.replace("__img__", response.imagenPokemon)
+ );
+ });
+ }
+var imagenPokemon = [
+{
+	"imagen" : "./assets/img/bulbasaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+{
+	"imagen": "./assets/img/ivysaur.png"
+},
+
+];
+
+
+$(document).ready(cargarPagina);

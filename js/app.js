@@ -1,8 +1,11 @@
 $.getJSON("http://pokeapi.co/api/v2/pokemon/",
 	function (response) {
-	var pokemons = response.results;
-	crearPokemons(pokemons);
+	var pokemons = response.name;
+	console.log(pokemons)
+	/*crearPokemons(pokemons);*/
+	mostrarNombre(pokemons);
 });
+
 
 /*var xhr = new XMLHttpRequest();
 
@@ -34,7 +37,7 @@ function crearPokemons(pokemons) {
 	});
 }
 */
-function crearPokemons(pokemons){
+/*function crearPokemons(pokemons){
 	var $ul = $("#pokemons");
 	pokemons.forEach(function (pokemon) {
 		var $li = $("<a>", {'class': 'col l3 waves-effect waves-light btn'});
@@ -45,5 +48,24 @@ function crearPokemons(pokemons){
 
 	});
 }
+*/
+var plantillaPokemon ="<h3>__nombre__</h3>" +
+"<img src='assets/img/charmander.png'>";
 
-$(document).ready(crearPokemons);
+var mostrarNombre = function (response) {
+	var $ul = $("#pokemons");
+	pokemons.forEach(function (pokemon) {
+	var $li = $("<a>", {'class': 'col l3 waves-effect waves-light btn'});
+	$li.addClass("pokemon");
+	$li.text(pokemon.name);
+	$ul.append($li);
+	var contenedorPokemon = $("#imagenPokemon");
+		contenedorPokemon.html(
+			plantillaPokemon.replace("__nombre__",).replace("__img__", response.img)
+		);
+
+});
+
+};
+
+$(document).ready(mostrarNombre);
